@@ -1,12 +1,20 @@
 BodInstallers
 =============
 
-These are the installer Templates used by [Bodhi Linux's](http://www.bodhilinux.com/) offline installers, aka .bod files.
+These are the installer Templates used by [Bodhi Linux's](http://www.bodhilinux.com/) offline installers, aka .bod files. While Bodhi supports multiple CPU architectures, for purposes of illustration the installation scripts here are for Bodhi 2.0.1 32 bit.
+
+Understanding Bod Files
+-----------------------
+
+* [.Bod File Command Line Arguments](http://wiki.bodhilinux.com/doku.php?id=bod_cli_arguments)
+* [How To Build a .bod File](http://wiki.bodhilinux.com/doku.php?id=bod_files_-_howto_build) Note this wiki is badly out of Date and describes how to build a Bod file manually using the orginal installtion script developed by Jeff Hoogland. Since then the Installtions scripts have grown abit in complexity and I use a python library I developed to build them.
+* [How To Build a .bod File: Ncurses](http://wiki.bodhilinux.com/doku.php?id=bod_files_-_how_to_build_ncurses)
+* [Makeself Documentation](http://megastep.org/makeself/) For reference since bod files are created using the makeself utility.
 
 Variable Substitution
 ---------------------
 
-All words prefixed and postfixed with '**$$**' are variables which my python bod building script substitues with the approbriate value for the package we are creating a bod for.
+All words prefixed and postfixed with '**$$**' are variables which my python bod building script substitutes with the approbriate value for the package we are creating a bod for.
 
 The complete list of such meta-variables is:
 
@@ -25,4 +33,5 @@ The complete list of such meta-variables is:
 License
 -------
 
+GPL v3
 These files are free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
