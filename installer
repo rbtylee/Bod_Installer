@@ -67,3 +67,5 @@ zenity --info --title="Bodhi Application Installer" --text="Click <b>OK</b> and 
 DO="bash $SCR_DIR/bodapt.sh $@"
 gksudo -D "Bodhi Installation Script" $DO
 exit $?
+
+# All Wrongs Reserved.
