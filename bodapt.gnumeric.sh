@@ -82,7 +82,7 @@ fi
 
 copyAptCache
 
-sudo apt-get -y --force-yes --no-download --ignore-missing install $PKG_LIST | zenity --progress --pulsate --auto-kill --title="Bodhi Application Installer" --text="<i>Installing ${BOD_NAME^}...</i>" --width=600
+sudo apt-get -y --force-yes --no-download --ignore-missing install $PKG_LIST 2>/dev/null | zenity --progress --pulsate --auto-kill --title="Bodhi Application Installer" --text="<i>Installing ${BOD_NAME^}...</i>" --width=600
 
 assert_package
 rmAptCache
