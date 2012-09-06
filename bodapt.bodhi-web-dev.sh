@@ -2,7 +2,7 @@
 #
 #   $$SH2NAME$$ Version 2.00.0
 #   $$DATE$$
-# 
+#
 #   Bod Installation Script: Bodhi 2.0 i686
 #
 #   Bodhi Linux (c) 2012
@@ -39,16 +39,16 @@ copyAptCache(){
     sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
     sudo cp sources.list /etc/apt/
     sudo cp -f lists/* /var/lib/apt/lists/
-    sudo cp *.deb /var/cache/apt/archives/ | zenity --progress --pulsate --auto-kill --title="Bodhi Application Installer" --text="<i>Preparing Files...</i>" --width=600
+    sudo cp *.deb /var/cache/apt/archives/ | zenity --window-icon=/usr/share/icons/bodhi.png  --progress --pulsate --auto-kill --title="Bodhi Application Installer" --text="<i>Preparing Files...</i>" --width=600
 }
 
 assert_package() {
     is_installed=$(apt-cache policy $APP_NAME | grep 'Installed: (none)' | wc -l)
     if [ "$is_installed" -eq "1" ]; then
         echo "Installation Failure!!"
-        zenity --error --title="Bodhi Application Installer" --text="<b>${BOD_NAME^} Failed to Install</b>"
+        zenity --window-icon=/usr/share/icons/bodhi.png  --error --title="Bodhi Application Installer" --text="<b>${BOD_NAME^} Failed to Install</b>"
     else
-        zenity --info --title="Bodhi Application Installer" --text="<b>${BOD_NAME^} Installed</b>\n$MENU_STR"
+        zenity --window-icon=/usr/share/icons/bodhi.png  --info --title="Bodhi Application Installer" --text="<b>${BOD_NAME^} Installed</b>\n$MENU_STR"
         apt-cache policy $APP_NAME
     fi
 }
@@ -56,36 +56,36 @@ assert_package() {
 
 mySql_Password(){
   while [ 1 ]; do
-    PSS=$(zenity --entry --hide-text --title="Configuring mysql-server-5.1" --text="While not mandatory, it is highly recommended that you set a password \nfor the MySQL administrative \"root\" user.\n\nIf this field is left blank, the password will not be changed.\n\nNew password for the MySQL \"root\" user:")
+    PSS=$(zenity --window-icon=/usr/share/icons/bodhi.png  --entry --hide-text --title="Configuring mysql-server-5.1" --text="While not mandatory, it is highly recommended that you set a password \nfor the MySQL administrative \"root\" user.\n\nIf this field is left blank, the password will not be changed.\n\nNew password for the MySQL \"root\" user:")
     if [ $? == 1 ]; then
       return 1
     fi
-    PS2=$(zenity --entry --hide-text --title="Configuring mysql-server-5.1" --text="\n\nRepeat password for the MySQL \"root\" user:")
+    PS2=$(zenity --window-icon=/usr/share/icons/bodhi.png  --entry --hide-text --title="Configuring mysql-server-5.1" --text="\n\nRepeat password for the MySQL \"root\" user:")
     if [ $? == 1 ]; then
       PS2=0
     fi
     if [ $PSS == $PS2 ]; then
       return 0
     else
-      zenity --warning --title="Configuring mysql-server-5.1" --text="Password input error\n\nThe two passwords you entered were not the same. Please try again. "
+      zenity --window-icon=/usr/share/icons/bodhi.png  --warning --title="Configuring mysql-server-5.1" --text="Password input error\n\nThe two passwords you entered were not the same. Please try again. "
      fi
   done
 }
 
 phpAdmin_Password(){
   while [ 1 ]; do
-    PHP_PSS=$(zenity --entry --hide-text --title="Configuring phpmyadmin" --text="Please provide a password for phpmyadmin to register with the database\n server.  If left blank, a random password will be generated.\n\nMySQL application password for phpmyadmin:")
+    PHP_PSS=$(zenity --window-icon=/usr/share/icons/bodhi.png  --entry --hide-text --title="Configuring phpmyadmin" --text="Please provide a password for phpmyadmin to register with the database\n server.  If left blank, a random password will be generated.\n\nMySQL application password for phpmyadmin:")
   if [ $? == 1 ]; then
       return 1
   fi
-  PHP_PS2=$(zenity --entry --hide-text --title="Configuring phpmyadmin" --text="Password confirmation:")
+  PHP_PS2=$(zenity --window-icon=/usr/share/icons/bodhi.png  --entry --hide-text --title="Configuring phpmyadmin" --text="Password confirmation:")
   if [ $? == 1 ]; then
       PHP_PS2=0
   fi
   if [ $PHP_PSS == $PHP_PS2 ]; then
       return 0
   else
-      zenity --warning --title="Configuring phpmyadmin" --text="Password input error\n\nThe two passwords you entered were not the same. Please try again. "
+      zenity --window-icon=/usr/share/icons/bodhi.png  --warning --title="Configuring phpmyadmin" --text="Password input error\n\nThe two passwords you entered were not the same. Please try again. "
   fi
   done
 }
@@ -107,7 +107,7 @@ if [ "$1" == debug ]; then
     fi
 
     # Select phpmyadmin Web server
-    WEB_S=$(zenity --list --radiolist --title="Configuring phpmyadmin" --text="Please choose the web server that should be automatically configured to \nrun phpMyAdmin. \n\n"  --column="" --column="Web server" TRUE apache2 FALSE lighttpd)
+    WEB_S=$(zenity --window-icon=/usr/share/icons/bodhi.png  --list --radiolist --title="Configuring phpmyadmin" --text="Please choose the web server that should be automatically configured to \nrun phpMyAdmin. \n\n"  --column="" --column="Web server" TRUE apache2 FALSE lighttpd)
     if [ $? == 1 ]; then
           WEB_S="apache2"
     fi
@@ -120,7 +120,7 @@ if [ "$1" == debug ]; then
     # Set phpmyadmin admin password for sql
     sudo echo "phpmyadmin phpmyadmin/mysql/admin-pass password $PSS" | sudo debconf-set-selections
     # Use dbconfig-common
-    zenity --question --title="Configuring phpmyadmin" --text="The phpmyadmin package must have a database installed and configured before it can be used. This can be optionally handled with dbconfig-common.\n\nIf you are an advanced database administrator and know that you want to perform this configuration manually, or if your database has already been installed and configured, you should refuse this option.  Details on what needs to be done should most likely be provided in /usr/share/doc/phpmyadmin.\n\n Otherwise, you should probably choose this option.\n\n Configure database for phpmyadmin with dbconfig-common?"
+    zenity --window-icon=/usr/share/icons/bodhi.png  --question --title="Configuring phpmyadmin" --text="The phpmyadmin package must have a database installed and configured before it can be used. This can be optionally handled with dbconfig-common.\n\nIf you are an advanced database administrator and know that you want to perform this configuration manually, or if your database has already been installed and configured, you should refuse this option.  Details on what needs to be done should most likely be provided in /usr/share/doc/phpmyadmin.\n\n Otherwise, you should probably choose this option.\n\n Configure database for phpmyadmin with dbconfig-common?"
     if [ $? == 0 ]; then
       sudo echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | sudo debconf-set-selections
     else
@@ -137,7 +137,7 @@ if [ "$1" == debug ]; then
 
 
     echo "Installing $APP_NAME via apt..."
-    sudo apt-get -y --force-yes --no-download --ignore-missing install $PKG_LIST | zenity --text-info --title="Bodhi Application Installer" --width=800 --height=600
+    sudo apt-get -y --force-yes --no-download --ignore-missing install $PKG_LIST | zenity --window-icon=/usr/share/icons/bodhi.png  --text-info --title="Bodhi Application Installer" --width=800 --height=600
     assert_package
     rmAptCache
     sudo cp /etc/apt/sources.list.bak /etc/apt/sources.list
@@ -161,7 +161,7 @@ else
 fi
 
 # Select phpmyadmin Web server
-WEB_S=$(zenity --list --radiolist --title="Configuring phpmyadmin" --text="Please choose the web server that should be automatically configured to \nrun phpMyAdmin. \n\n"  --column="" --column="Web server" TRUE apache2 FALSE lighttpd)
+WEB_S=$(zenity --window-icon=/usr/share/icons/bodhi.png  --list --radiolist --title="Configuring phpmyadmin" --text="Please choose the web server that should be automatically configured to \nrun phpMyAdmin. \n\n"  --column="" --column="Web server" TRUE apache2 FALSE lighttpd)
 if [ $? == 1 ]; then
       WEB_S="apache2"
 fi
@@ -174,7 +174,7 @@ fi
 # Set phpmyadmin admin password for sql
 sudo echo "phpmyadmin phpmyadmin/mysql/admin-pass password $PSS" | sudo debconf-set-selections
 # Use dbconfig-common
-zenity --question --title="Configuring phpmyadmin" --text="The phpmyadmin package must have a database installed and configured before it can be used. This can be optionally handled with dbconfig-common.\n\nIf you are an advanced database administrator and know that you want to perform this configuration manually, or if your database has already been installed and configured, you should refuse this option.  Details on what needs to be done should most likely be provided in /usr/share/doc/phpmyadmin.\n\n Otherwise, you should probably choose this option.\n\n Configure database for phpmyadmin with dbconfig-common?"
+zenity --window-icon=/usr/share/icons/bodhi.png  --question --title="Configuring phpmyadmin" --text="The phpmyadmin package must have a database installed and configured before it can be used. This can be optionally handled with dbconfig-common.\n\nIf you are an advanced database administrator and know that you want to perform this configuration manually, or if your database has already been installed and configured, you should refuse this option.  Details on what needs to be done should most likely be provided in /usr/share/doc/phpmyadmin.\n\n Otherwise, you should probably choose this option.\n\n Configure database for phpmyadmin with dbconfig-common?"
 if [ $? == 0 ]; then
   sudo echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | sudo debconf-set-selections
 else
@@ -190,7 +190,7 @@ fi
 sudo echo "phpmyadmin phpmyadmin/mysql/app-pass password $PHP_PSS" | sudo debconf-set-selections
 
 
-sudo apt-get -y --force-yes --no-download --ignore-missing install $PKG_LIST 2>/dev/null | zenity --progress --pulsate --auto-kill --title="Bodhi Application Installer" --text="<i>Installing ${BOD_NAME^}...</i>" --width=600
+sudo apt-get -y --force-yes --no-download --ignore-missing install $PKG_LIST 2>/dev/null | zenity --window-icon=/usr/share/icons/bodhi.png  --progress --pulsate --auto-kill --title="Bodhi Application Installer" --text="<i>Installing ${BOD_NAME^}...</i>" --width=600
 
 assert_package
 rmAptCache

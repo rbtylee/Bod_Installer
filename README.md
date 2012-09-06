@@ -15,7 +15,7 @@ Information on understanding bod files can be found on Bodhi Linux's Documentati
 
 Files
 -----
-* **installer**		This is template for the first installation script found in most bod files. This script does some test to determine if the bod can be installed and then calls the second script using gksudo to gain root.
+* **installer**		This is template for the first installation script found in most bod files. This script does some tests to determine if the bod can be installed and then calls the second script using gksudo to gain root.
 * **bodapt**		This is second installation script found in most bod files. Here is where the deb files are actually installed.
 * **installer.bodhi-web-dev.sh**		This is the custom installer template script for the bodhi-web-dev package.
 * **bodapt.bodhi-web-dev.sh**		This is the custom bodapt template script for the bodhi-web-dev package.

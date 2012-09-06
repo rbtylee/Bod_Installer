@@ -2,7 +2,7 @@
 #
 #   $$SHNAME$$ Version 2.00.0
 #   $$DATE$$
-# 
+#
 #   Bod Installation Script: Bodhi 2.0 i686
 #
 #   Bodhi Linux (c) 2012
@@ -32,8 +32,8 @@ ARCH=`cat /proc/cpuinfo | grep ARM`
 
 if [ -n "$ARCH" ]; then
   echo "FATAL ERROR: ARM Processor detected."
-  
-  zenity --error --title "FATAL ERROR" --text "This bod file does not support\nthe cpu architecure detected.\n\nPlease Download the appropriate\nbod file for your machine."
+
+  zenity --window-icon=/usr/share/icons/bodhi.png  --error --title "FATAL ERROR" --text "This bod file does not support\nthe cpu architecure detected.\n\nPlease Download the appropriate\nbod file for your machine."
   echo "aborting installation ..."
   exit 1
 fi
@@ -41,7 +41,7 @@ fi
 RELEASE=`cat /etc/lsb-release | grep 10.04`
 if [ -n "$RELEASE" ]; then
   echo "FATAL ERROR: Bodhi 1.x detected"
-  zenity --error --title "FATAL ERROR" --text "This bod file only supports bodhi 2.0."
+  zenity --window-icon=/usr/share/icons/bodhi.png  --error --title "FATAL ERROR" --text "This bod file only supports bodhi 2.0."
   echo "aborting installation ..."
   exit 1
 fi
@@ -49,20 +49,20 @@ fi
 CPU_B=`/bin/uname -m | grep i686`
 if [ -z "$CPU_B" ]; then
   echo "FATAL ERROR: Cpu not supported"
-  zenity --error --title "FATAL ERROR" --text "This bod file only supports 32 bit Bodhi."
+  zenity --window-icon=/usr/share/icons/bodhi.png  --error --title "FATAL ERROR" --text "This bod file only supports 32 bit Bodhi."
   echo "aborting installation ..."
   exit 1
 fi
 
-zenity --question --title="Bodhi Application Installer" --text="Would you like to install ${BOD_NAME^}: $APP_DESC?"
+zenity --window-icon=/usr/share/icons/bodhi.png  --question --title="Bodhi Application Installer" --text="Would you like to install ${BOD_NAME^}: $APP_DESC?"
 
 if [ $? == 1 ]; then
-    zenity --info --title="Bodhi Application Installer" --text="${BOD_NAME^}: $APP_DESC was <i>not</i> installed. Thanks for using Bodhi!"
+    zenity --window-icon=/usr/share/icons/bodhi.png  --info --title="Bodhi Application Installer" --text="${BOD_NAME^}: $APP_DESC was <i>not</i> installed. Thanks for using Bodhi!"
     echo -e "${BOD_NAME^} installation aborted.\n"
     exit 1
 fi
 
-zenity --info --title="Bodhi Application Installer" --text="Click <b>OK</b> and enter your password to install $BOD_NAME"
+zenity --window-icon=/usr/share/icons/bodhi.png  --info --title="Bodhi Application Installer" --text="Click <b>OK</b> and enter your password to install $BOD_NAME"
 
 DO="bash $SCR_DIR/bodapt.sh $@"
 gksudo -D "Bodhi Installation Script" $DO
